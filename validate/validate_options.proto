@@ -1,0 +1,182 @@
+syntax = "proto2";
+
+package validate;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/EngineerEthanLei/protoc-gen-validate/validate;validate";
+
+extend google.protobuf.FieldOptions {
+  optional FieldValidator field_validator = 50000;
+}
+
+message FieldValidator {
+  // Used for nested message types, requires that the field must exists.
+  optional bool must_exists = 1;
+  // Used for string fields validate
+  optional ValidateString string = 2;
+  // Used for integer fields validate
+  optional ValidateInteger integer = 3;
+  // Used for floating fields validate
+  optional ValidateFloating floating = 4;
+}
+
+message ValidateError {
+  // Used for specifies a user-customizable public error code when validating.
+  optional string main_error_code = 1;
+  // Used for specifies a user-customizable private error code when validating.
+  optional string other_error_code = 2;
+  // Used for specifies a user-customizable error msg when validating.
+  optional string error_msg = 3;
+}
+
+message ValidateString {
+  // requires the string to be not empty (i.e different from "").
+  optional ValidateStringNotEmpty not_empty = 1;
+  // Field value of length must greater than this value.
+  optional ValidateStringLengthGt length_gt = 2;
+  // Field value of length must smaller than this value.
+  optional ValidateStringLengthLt length_lt = 3;
+  // Field value of length must strictly equal to this value.
+  optional ValidateStringLengthEq length_eq = 4;
+  // Field value of length must not equal to this value.
+  optional ValidateStringLengthNotEq length_not_eq = 5;
+}
+
+message ValidateStringNotEmpty {
+  // Need Validate?
+  optional bool value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateStringLengthGt {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateStringLengthLt {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateStringLengthEq {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateStringLengthNotEq {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateInteger {
+  // Field value greater to this value.
+  optional ValidateIntGt gt = 1;
+  // Field value smaller to this value.
+  optional ValidateIntLt lt = 2;
+  // Field value equal to this value.
+  optional ValidateIntEq eq = 3;
+  // Field value not equal to this value.
+  optional ValidateIntNotEq not_eq = 4;
+}
+
+message ValidateIntGt {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateIntLt {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateIntEq {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateIntNotEq {
+  // Need Validate?
+  optional int64 value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateFloating {
+  // Field value of double strictly greater than this value.
+  // Note that this value can only take on a valid floating point
+  // value. Use together with float_epsilon if you need something more specific.
+  optional ValidateFloatGt gt = 1;
+  // Field value of double strictly smaller than this value.
+  // Note that this value can only take on a valid floating point
+  // value. Use together with float_epsilon if you need something more specific.
+  optional ValidateFloatLt lt = 2;
+  // Floating-point value compared to which the field content should be greater
+  // or equal.
+  optional ValidateFloatGte gte = 3;
+  // Floating-point value compared to which the field content should be smaller
+  // or equal.
+  optional ValidateFloatLte lte = 4;
+  // Floating-point value compared to which the field content should be equal.
+  optional ValidateFloatEq eq = 5;
+  // Floating-point value compared to which the field content should not be
+  // equal.
+  optional ValidateFloatNotEq not_eq = 6;
+}
+
+message ValidateFloatGt {
+  // Need Validate?
+  optional double value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateFloatGte {
+  // Need Validate?
+  optional double value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateFloatLt {
+  // Need Validate?
+  optional double value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateFloatLte {
+  // Need Validate?
+  optional double value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateFloatEq {
+  // Need Validate?
+  optional double value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
+
+message ValidateFloatNotEq {
+  // Need Validate?
+  optional double value = 1;
+  // Used for specifies a user-customizable error when validating.
+  optional ValidateError custom_error = 2;
+}
